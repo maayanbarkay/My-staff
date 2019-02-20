@@ -1,0 +1,126 @@
+
+
+// פעולה בונה רשימה
+	public static Node<Integer> build() {
+		Node<Integer> head = new Node<Integer>(5);
+		Node<Integer> N = head;
+		for (int i = 0; i < 9; i++) {
+			int x = rnd.nextInt(20) + 1;
+			N.setNext(new Node<Integer>(x));
+			N = N.getNext();
+		}
+		return head;
+	}
+
+	// פעולה מדפיסה
+	public static void print(Node<Integer> N) {
+		Node<Integer> head = N;
+		while (head != null) {
+			System.out.print(head.getValue() + " ");
+			head = head.getNext();
+		}
+		System.out.println();
+	}
+
+	// פעולה בודקת גודל רשימה מקושרת
+	public static int size(Node<Integer> N) {
+		Node<Integer> head1 = N;
+		int count = 1;
+
+		while (head1.hasNext()) {
+			count++;
+			head1 = head1.getNext();
+		}
+		return count;
+	}
+
+	// פעולה משרשרת
+	public static Node<Integer> list(Node<Integer> N, Node<Integer> N1) {
+		Node<Integer> New1 = new Node<Integer>(N.getValue());
+		Node<Integer> New = New1;
+		Node<Integer> head1 = N;
+		Node<Integer> head2 = N1;
+		int length = size(head1);
+		int L2 = size(head2);
+		head1 = head1.getNext();
+		for (int i = 1; i < length; i++) {
+			New.setNext(new Node<Integer>(head1.getValue()));
+			head1 = head1.getNext();
+			New = New.getNext();
+		}
+		for (int i = 0; i < L2; i++) {
+			New.setNext(new Node<Integer>(head2.getValue()));
+			head2 = head2.getNext();
+			New = New.getNext();
+		}
+		return New1;
+	}
+
+	// פעולה משכפלת רשימה
+	public static Node<Integer> cast(Node<Integer> N) {
+		Node<Integer> head = N;
+		Node<Integer> New = new Node<Integer>(head.getValue());
+		Node<Integer> Newuse = New;
+		int length = size(N);
+		head = head.getNext();
+		for (int i = 1; i < length; i++) {
+			Newuse.setNext(new Node<Integer>(head.getValue()));
+			Newuse = Newuse.getNext();
+			head = head.getNext();
+		}
+		return New;
+
+	}
+
+	// פעולה הופכת רשימה
+	public static Node<Integer> Rev(Node<Integer> N1) {
+		Node<Integer> head = N1;
+		Stack<Node<Integer>> S1 = new Stack<Node<Integer>>();
+
+		while (head.getNext() != null) {
+			S1.push(head);
+			head = head.getNext();
+		}
+		N1 = head;
+		while (!S1.isEmpty()) {
+			head.setNext(S1.pop());
+			head = head.getNext();
+		}
+		head.setNext(null);
+		return N1;
+	}
+
+	// הפונקציה מקבלת רשימה ומספר
+	// הפונקציה מחזירה את הרשימה ללא האיברים בהם הופיע המספר
+	public static Node<Integer> DeleteNodesByNum(Node<Integer> N, int num) {
+		Node<Integer> head = N;
+		// אם יש מספר אסור באיבר הראשון מקדמים את הרשימה כולה קדימה, מוחקים את האיבר
+		// הראשון
+		if (head.getValue() == num) {
+			N = head.getNext();
+		}
+		// בדיקת מתקדמת על מספר אסור
+		while (head.hasNext()) {
+			// אם המספר הבא אחרי הקיים הוא האסור, ויש שני איברים קדימה, מדלגים על האיבר הבא
+			if (head.getNext().getValue() == num && head.getNext().hasNext()) {
+				System.out.println(head.getNext().getValue());
+				// האיבר הבא הוא מה שהיה קודם שניים קדימה
+				head.setNext(head.getNext().getNext());
+			}
+			// אם אין שניים קדימה, אבל יש מספר אסור
+			else if (head.getNext().getValue() == num) {
+
+				System.out.println(head.getNext().getValue());
+				// אנחנו יודעים שאין שניים קדימה, ולכן זה סוף הרשימה, אז מגדירים את האיבר הבא
+				// כנאל
+				head.setNext(null);
+				// ידוע שזה האיבר האחרון ואין סיבה להמשיך את הבדיקה
+				return N;
+			}
+			// אם לא מצאנו איברים אסורים, מתקדמים
+			else {
+				head = head.getNext();
+			}
+		}
+		return N;
+	}
