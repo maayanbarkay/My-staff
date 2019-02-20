@@ -124,3 +124,28 @@
 		}
 		return N;
 	}
+	//באבל סורט
+	public static Node<Integer> bubbleSort(Node<Integer> First)
+ 	{
+       	Node <Integer> temp = First;
+       	Integer value;
+       	
+       	for(int i=0; i<getLength(First)-1; i++)
+       	{
+ 	       	while (temp.getNext() != null)
+            	{
+ 	if(temp.getValue().compareTo(temp.getNext().getValue()) > 0)
+                 	{
+                       	value = temp.getValue();
+                       	temp.setValue(temp.getNext().getValue());
+                       	temp.getNext().setValue(value);
+                 	}
+                 	temp = temp.getNext();
+            	}
+            	temp = First;
+       	}
+       	return First;
+       	
+ 	}
+	
+	
