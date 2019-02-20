@@ -1,0 +1,261 @@
+public static BinNode<Integer> Build () {
+
+		Random rnd=new Random();
+		 
+			BinNode<Integer> tt1=new BinNode<Integer>(rnd.nextInt(26));
+			BinNode<Integer> tt2=new BinNode<Integer>(rnd.nextInt(30));
+		    BinNode<Integer> tt3=new BinNode<Integer>(rnd.nextInt(40));
+		    BinNode<Integer> tt4=new BinNode<Integer>(rnd.nextInt(52));
+		    BinNode<Integer> tt5=new BinNode<Integer>(tt1,rnd.nextInt(61),tt2);
+		    BinNode<Integer> tt6=new BinNode<Integer>(tt3,rnd.nextInt(70),tt4);
+		    BinNode<Integer> tt7=new BinNode<Integer>(null,rnd.nextInt(73),tt6);
+		    BinNode<Integer> tt8=new BinNode<Integer>(tt5,rnd.nextInt(12),tt7);
+		    TreeUtils.showTree(tt8," NEW");
+		 
+		    return tt8;
+	}
+	
+	public static BinNode<Integer> Buildnosyso () {
+
+		Random rnd=new Random();
+		 
+			BinNode<Integer> tt1=new BinNode<Integer>(rnd.nextInt(25));
+			BinNode<Integer> tt2=new BinNode<Integer>(rnd.nextInt(72));
+		    BinNode<Integer> tt3=new BinNode<Integer>(rnd.nextInt(24));
+		    BinNode<Integer> tt4=new BinNode<Integer>(rnd.nextInt(85));
+		    BinNode<Integer> tt5=new BinNode<Integer>(tt1,rnd.nextInt(56),tt2);
+		    BinNode<Integer> tt6=new BinNode<Integer>(tt3,rnd.nextInt(55),tt4);
+		    BinNode<Integer> tt7=new BinNode<Integer>(null,rnd.nextInt(10),tt6);
+		    BinNode<Integer> tt8=new BinNode<Integer>(tt5,rnd.nextInt(41),tt7);
+		 
+		    return tt8;
+	}
+
+	public static int TreeSum (BinNode <Integer> t1) {
+		if (t1 == null) return 0;
+		
+		return t1.getValue() + TreeSum(t1.getLeft()) + TreeSum(t1.getRight());
+	}
+	
+	public static void PrintPre (BinNode <Integer> t1) {
+		if (t1 != null) {
+			System.out.print(t1.getValue() + "  ");
+			PrintPre (t1.getLeft());
+			PrintPre (t1.getRight());
+		}
+	}
+	
+	public static void PrintPost (BinNode <Integer> t1) {
+		if (t1 != null) {
+			PrintPre (t1.getLeft());
+			PrintPre (t1.getRight());
+			System.out.print(t1.getValue() + "  ");
+		}
+	}
+	
+	public static void PrintIn (BinNode <Integer> t1) {
+		if (t1 != null) {
+			PrintPre (t1.getLeft());
+			System.out.print(t1.getValue() + "  ");
+			PrintPre (t1.getRight());
+		}
+	}	
+	// פעולה מחזירה אמת אם העץ זוגי.
+	public static boolean Even (BinNode <Integer> t1) {
+		if (t1.getValue() %2 != 0) {
+			return false;
+		}
+		if (!t1.hasLeft() && !t1.hasRight()) {
+			return true;
+		}
+		return Even(t1.getLeft())&& Even(t1.getRight());
+	}
+	//סופר את מספר הצמתים הימניים בעץ
+	public static int CountRight (BinNode <Integer> t) {
+		int count = 0;
+		if (t != null) {
+		if (!t.hasRight() && !t.hasLeft()) {
+			return count;
+			}
+		if (t.hasRight()) ++count;
+		return count +  CountRight(t.getRight()) + CountRight(t.getLeft());
+		}
+		return count;
+	}
+	//סופר את מספר הצמתים השמאליים בעץ
+	public static int CountLeft (BinNode <Integer> t) {
+		int count = 0;
+		if (t != null) {
+		if (!t.hasRight() && !t.hasLeft()) {
+			return count;
+			}
+		if (t.hasLeft()) ++count;
+		return count +  CountLeft(t.getRight()) + CountLeft(t.getLeft());
+		}
+		return count;
+	}
+	//פעולה מקבלת מספר ועץ. בודקת אם המספר קיים בעץ
+	public static boolean IsNumIn (BinNode <Integer> t1, int num) {
+		int n = t1.getValue();
+		boolean R = false;
+		boolean L = false;
+		
+		if (t1.getValue() == num) {
+			return true;
+		}
+		
+		
+		if (t1.hasLeft()) {
+			L = IsNumIn (t1.getLeft(), num);
+		}
+		
+		if (t1.hasRight()) {
+			R = IsNumIn (t1.getRight(), num);
+		}
+		return R || L;
+	}
+	// פעולה בודקת אם העץ מורכב מסדרה עוקבת
+	public static boolean Checkseries (BinNode <Integer> t1) {
+		int num = t1.getValue();
+		boolean L = false;
+		boolean R = false;
+		
+		if (!t1.hasRight() && !t1.hasLeft()) {
+			return true;
+		}
+		
+		if (t1.hasLeft()) {
+			if (t1.getLeft().getValue() == num + 1) {
+				L = Checkseries (t1.getLeft());
+			}
+		}
+		
+		if (t1.hasRight()) {
+			if (t1.getRight().getValue() == num +1) {
+				R = Checkseries(t1.getRight());
+			}
+		}
+		return L || R;
+	}
+	//פעולה מקבלת שני עצים ובודקת אם הם זהים בהרכב שלהם (ללא בדיקת ערך)
+	public static boolean SimilarTrees(BinNode<Integer> t1, BinNode<Integer> t2) {
+		boolean SimL = false;
+		boolean SimR = false;
+		int n = t1.getValue();
+		if (!t1.hasLeft() && !t2.hasLeft()) {
+			SimL = true;
+		}
+		
+		if (t1.hasLeft() && t2.hasLeft()) {
+			SimL = SimilarTrees (t1.getLeft(), t2.getLeft());
+		}
+		
+		if (!t1.hasRight() && !t2.hasRight()) {
+			SimR = true;
+		}
+		
+		if (t1.hasRight() && t2.hasRight()) {
+			SimR = SimilarTrees (t1.getRight(), t2.getRight());
+		}
+		
+		return SimL && SimR;
+		}
+	// פעולה בודקת אם עלה
+	public static boolean isLeaf(BinNode<Integer> bt)
+    {
+        return !bt.hasLeft() && !bt.hasRight();
+    }
+	//פעולה בודקת אם עצים זהים בערך ובהרכב
+	public static boolean SimilarTreesValue(BinNode<Integer> t1, BinNode<Integer> t2) {
+		
+		if (t1.getValue() != t2.getValue()) {
+			return false;
+		}
+		
+	boolean SimL = false;
+	boolean SimR = false;
+	if (!t1.hasLeft() && !t2.hasLeft()) {
+		SimL = true;
+	}
+	
+	if (t1.hasLeft() && t2.hasLeft()) {
+		SimL = SimilarTreesValue (t1.getLeft(), t2.getLeft());
+	}
+	
+	if (!t1.hasRight() && !t2.hasRight()) {
+		SimR = true;
+	}
+	
+	if (t1.hasRight() && t2.hasRight()) {
+		SimR = SimilarTreesValue (t1.getRight(), t2.getRight());
+	}
+	
+	return SimL && SimR;
+	}
+  
+  
+//פעולה מוצאת את הערך המינימלי בעץ
+	public static int MinValue(BinNode<Integer> t1) {
+		if (Tree_Ezer.isLeaf(t1)) {
+			return t1.getValue();
+		}
+		int L = t1.getValue();
+		int R = t1.getValue();
+		
+		if (t1.hasLeft()) {
+			L = MinValue (t1.getLeft());
+		}
+		if (t1.hasRight()) {
+			R = MinValue(t1.getRight());
+		}
+		
+		return Math.min(t1.getValue(), Math.min(L, R));
+	}
+
+
+
+
+
+//פונקצית מעטפה לפונקציה התחתונה לה, היא מקבלת שני עצים, מגדירה את האיבר הראשון, ושולחת את הרשימה והעצים לתחתונה
+	public static Node <Integer> runTwotreesToNode (BinNode<Integer> t1,BinNode<Integer> t2 ){
+		//הרשימה שנשלחת לפונקציה מתחת
+		Node<Integer> N1;
+		//בודקים את האיבר הראשון משני העצים מכיוון שהרשימה לא יכולה להיות ריקה, אם שני האיברים  זהים, מכניסים את הערך שלהם - אם לא משאירים ריק
+		if (t1.getValue() == t2.getValue()) {
+			N1 = new Node<Integer>(t1.getValue());
+		}
+		else {
+			N1 = new Node<Integer>(null);
+		}
+		//שליחה לפונקציה השנייה, שם הרשימה נערכת מחדש
+		TwotreesToNode(t1, t2, N1);
+		return N1;
+		
+	}
+	//מופעלת ומזומנת באמצעות הפונקציה הנ"ל, הפונקציה הזו מקבלת שני עצים, ומחזירה רשימה מקושרת של המספרים שמשותפים לשניהם.
+	public static void TwotreesToNode(BinNode<Integer> t1, BinNode<Integer> t2, Node<Integer> N1 ) {
+		//בודק אם המספר הנוכחי בעץ הראשון קיים בעץ השני, אם כן, מכניס אותו לרשימה המשותפת
+		if (Tree_Ezer.IsNumIn(t2, t1.getValue())) {
+			if (N1.getNext()== null) {
+				N1.setNext(new Node<Integer>(t1.getValue()));
+			}
+			//אם יש איבר לאחר הרשימה וצריך ליצור איבר ביניהם, הפונקציה יוצרת שני צמתים חדשים ומעתיקה בעזרתם
+			else {
+				Node <Integer> N2 = new Node <Integer>(t1.getValue());
+				Node <Integer> pos = N1;
+				N2.setNext(pos.getNext());
+				pos.setNext(N2);
+			}
+		}
+		//התקדמות רקורסיבית צד שמאל
+		if (t1.hasLeft()) {
+		TwotreesToNode(t1.getLeft(), t2, N1);
+		}
+		
+		//התקדמות רקורסיבית צד ימין
+		if (t1.hasRight()) {
+		TwotreesToNode(t1.getRight(), t2, N1);
+		}
+	
+	}
+ 
