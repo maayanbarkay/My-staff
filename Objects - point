@@ -1,0 +1,66 @@
+
+
+public class Point {
+
+	// set variables
+	private double x, y;
+
+	// constructor
+	/*
+	 * הקונסטרקטור יכיל רק בדיקות קלט ומשתנים
+	 * 
+	 */
+	public Point(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public Point(Point other) {
+		this.setX(other.getX());
+		this.setY(other.getY());
+	}
+
+	// set X
+	public void setX(double x) {
+		this.x = x;
+		if (x < 0) {
+			this.x = 0;
+		} else {
+			this.x = x;
+
+		}
+	}
+
+	// get X
+	public double getX() {
+		return this.x;
+	}
+
+	// set Y
+	public void setY(double y) {
+		this.y = y;
+		if (y < 0) {
+			this.y = 0;
+		} else {
+			this.y = y;
+
+		}
+	}
+
+	// get Y
+	public double getY() {
+		return this.y;
+	}
+
+	// print
+
+	/*
+	 * בונים סטרינג ואז מכניסים לתוכו את מה שרוצים להדפיס
+	 */
+	public String toString() {
+		String str = "";
+		str += "(" + x + "," + y + ")";
+		return str;
+	}
+
+}
