@@ -147,5 +147,35 @@
        	return First;
        	
  	}
-	
+	//פעולה מקבלת רשימה ומוחקת את הערכים הכפולים (שמופיעים פעמיים
+	public static void cleanDuplicates(Node<Integer> head) 
+  {
+                 	
+          	Node<Integer> n = head;
+          	Node<Integer> m = n;
+          	int value;
+          	
+          	while (n.hasNext()) 
+            {
+                 	
+                 	value=n.getValue();
+                 	int size = getLength(n);
+                 	
+                 	while( size>1 && n!=null && n.hasNext())
+                 	{
+                       	if(value == n.getNext().getValue())
+                       	{
+                              	n.setNext(n.getNext().getNext());
+                       	}
+                       	n = n.getNext();
+                       	size--;
+                 	}
+                 	
+                 	if(m.hasNext())
+                 	{
+                       	n=m.getNext();
+                       	m=m.getNext();
+                 	}
+          	}  	
+   	}
 	
