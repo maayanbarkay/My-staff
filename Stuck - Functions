@@ -1,0 +1,114 @@
+
+
+public static int length(Stack<Integer> stk) {
+		if(stk.isEmpty())
+		{
+			while (!tmp.isEmpty())
+			{
+				stk.push(tmp.pop());
+			}
+			return 0;
+		}
+		tmp.push(stk.pop());
+		return 1 + length(stk);
+	}
+  
+	public static void stkSort(Stack<Integer> stk) 
+	{
+		Stack<Integer> tmp1 = new Stack<Integer>();
+		int temp = 0; 
+		int length = length(stk);
+		for (int k = 0; k < length; k++) {
+			temp = stk.pop();
+			for (int j = 0; j < length -1 -k; j++) {
+				if (temp >= stk.peek()) {
+					tmp1.push(stk.pop());
+				} else {
+					tmp1.push(temp);
+					temp = stk.pop();
+				}
+			}
+			stk.push(temp);
+			while (!tmp1.isEmpty())
+			{
+				stk.push(tmp1.pop());
+			}
+		}
+	}	
+  
+	public static int removeLast(Stack<Integer> stk) {
+		Stack<Integer> tmp1 = new Stack<Integer>();
+		int length = length(stk);
+		int n = 0;
+		while (n < length) {
+			if(length(stk) != 1)
+				tmp1.push(stk.pop());
+			n++;
+		}
+		int x = stk.pop();
+		while (!tmp1.isEmpty())
+		{
+			stk.push(tmp1.pop());
+		}
+		return x;
+	}
+  
+	public static void addLast(Stack<Integer> stk, int x) {
+		Stack<Integer> tmp1 = new Stack<Integer>();
+		while (!stk.isEmpty())
+		{
+			tmp1.push(stk.pop());
+		}
+		stk.push(x);
+		while (!tmp1.isEmpty())
+		{
+			stk.push(tmp1.pop());
+		}
+	}
+  
+	public static int removeNth (Stack<Integer> stk , int n) {
+		Stack<Integer> tmp1 = new Stack<Integer>();
+		int s = 0;
+		while (s < n) {
+			if(length(stk) != 1)
+				tmp1.push(stk.pop());
+			s++;
+		}
+		int x = stk.pop();
+		while (!tmp1.isEmpty())
+		{
+			stk.push(tmp1.pop());
+		}
+		return x;
+	}
+  
+	public static void addNth(Stack<Integer> stk, int x) {
+		Stack<Integer> tmp1 = new Stack<Integer>();
+		int s = 0;
+		while (s < x)
+		{
+			tmp1.push(stk.pop());
+			s++;
+		}
+		stk.push(x);
+		while (!tmp1.isEmpty())
+		{
+			stk.push(tmp1.pop());
+		}
+	}
+  
+	public static Stack<Integer> Clone(Stack<Integer> stk)
+	{
+		Stack<Integer> clone = new Stack<Integer>();
+		Stack<Integer> temp = new Stack<Integer>();
+		while(!stk.isEmpty())
+		{
+			temp.push(stk.pop());
+		}
+		while(!temp.isEmpty()) 
+		{
+			stk.push(temp.peek());
+			clone.push(temp.pop());
+		}
+		return clone;
+	}
