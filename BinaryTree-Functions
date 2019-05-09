@@ -301,6 +301,18 @@ public static BinNode<Integer> Build () {
 		
 		return first;
 	}
+	
+	//זהה לISnumin בשורה 98
+	public static boolean Exists (BinNode<Integer> bt, int x)
+	{
+	if (bt == null)
+	return false;
+
+	if (bt.getValue() == x)
+	return true;
+
+	return Exists(bt.getLeft(), x) || Exists(bt.getRight(), x);
+	}
 
 
  
