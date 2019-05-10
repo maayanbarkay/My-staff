@@ -315,4 +315,71 @@ public static BinNode<Integer> Build () {
 	}
 
 
+	//
+	//שלוש פונקציות יחד
+	//הפונקציה בודקת אם הרשימה מתחלקת בשלוש, ואם הערכים בשליש הראשון, השני והשלישי שלה שווים.
+	
+	public static boolean Threelist (Node <Integer> L1) {
+		//not empty
+		if (L1 != null) {
+		// divided by 3
+		if (Node_Ezer.size(L1) %3 == 0) {
+		//all three parts are the same
+		if (compare(L1)) {
+			return true;
+		}
+		}
+	}
+		return false;
+	}
+	
+	public static boolean compare (Node <Integer> L1) {
+		Stack <Integer> s1 = new Stack();
+		Stack <Integer> s2 = new Stack();
+		Stack <Integer> s3 = new Stack();
+		//inserts the list into to three new Stacks
+		put(L1, s1, s2, s3);
+		
+		int x = s1.pop();
+		//if it is similar 
+		if (x == s2.pop() && x == s3.pop()) {
+			x = s1.pop();
+		if (x == s2.pop() && x == s3.pop()) {
+			x = s1.pop();
+		if (x == s2.pop() && x == s3.pop()) {
+			x = s1.pop();
+		if (x == s2.pop() && x == s3.pop()) {
+			
+				return true;		
+		}
+				}
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	//puts
+	public static void put (Node <Integer> L1,  Stack <Integer> s1, Stack <Integer> s2, Stack <Integer> s3) {
+		int x = Node_Ezer.size(L1);
+		System.out.println(x);
+		for (int i = 0; i < x/3; i++) {
+			s1.push(L1.getValue());
+			L1 = L1.getNext();
+		}
+		for (int i = 4; i < 8; i++) {
+			s2.push(L1.getValue());
+			L1 = L1.getNext();
+		}
+		for (int i = 8; i < 12; i++) {
+			s3.push(L1.getValue());
+			L1 = L1.getNext();
+		}
+		
+		
+	//
+	//
+	
+
  
