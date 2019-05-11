@@ -381,5 +381,27 @@ public static BinNode<Integer> Build () {
 	//
 	//
 	
+	// פעולה בודקת אם כל צומת בעץ, הפרש הגבהים בין שני בניו הוא מקסימום 1
+	public static boolean IsBalanced (BinNode <Integer> bt) {
+		if (bt == null) 
+			return true;
+		
+		if (Math.abs(Height (bt.getLeft()) - Math.abs(Height (bt.getRight()))) > 1 ) 
+		return false;
+		
+	return IsBalanced (bt.getLeft()) && IsBalanced(bt.getRight());
+	}
+	
+	
+	//פעולה בודקת גובה מקסימלי בעץ (הפרשים בין צמתים)
+	public static int Height (BinNode <Integer> bt) {
+		
+		if (bt == null) {
+			return -1;
+		}
+		
+		return 1 + Math.max(Height (bt.getLeft()), Height (bt.getRight()));
+	}
+	
 
  
