@@ -404,4 +404,26 @@ public static BinNode<Integer> Build () {
 	}
 	
 
+//טענת כניסה: הפונקציה מקבלת עץ בינארי
+//טענת יציאה: הפונקציה מדפיסה את העץ לפי רמות
+
+  public static void printByLevels(BinNode<Integer> bt)
+	{
+		Queue<BinNode<Integer>> q = new Queue<BinNode<Integer>>();
+		q.insert(bt);
+		
+		while(!q.isEmpty())
+		{
+			BinNode<Integer> current = q.remove();
+			
+			System.out.print(current.getValue() + ", ");
+			
+			if(current.hasLeft())
+				q.insert(current.getLeft());
+			
+			if(current.hasRight())
+				q.insert(current.getRight());
+		}
+		
+	}
  
