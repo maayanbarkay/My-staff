@@ -261,6 +261,21 @@ public static BinNode<Integer> Build () {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//הפעולה בודקת אם יש מסלול עולה מעלים לשורש בערכים (כל בן צריך להיו גדול מהקודם לו)
 	public static boolean UpPath (BinNode <Integer> N ) {
 		if (Tree_Ezer.isLeaf(N)) {
